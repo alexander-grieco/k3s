@@ -46,7 +46,7 @@ source "proxmox-iso" "k3s" {
 
   # VM Cloud Init Settings
   cloud_init              = true
-  cloud_init_storage_pool = "k3s-storage"
+  cloud_init_storage_pool = "local-zfs"
 
   # Packer Boot Commands
   boot_command = [
@@ -87,6 +87,11 @@ build {
   provisioner "file" {
     source      = "files/proxmox/396-pve.cfg"
     destination = "/tmp/396-pve.cfg"
+  }
+
+  provisioner "file" {
+    source      = "files/k3s/bridge.conf"
+    destination = "/etc/sysctl.d/bridge.conf"
   }
 
   # Provisioning the VM Template for Cloud-Init Integration in Proxmox #3

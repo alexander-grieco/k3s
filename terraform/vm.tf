@@ -3,7 +3,7 @@ resource "proxmox_vm_qemu" "k3s-servers" {
 
   name        = "k3s-server${count.index + 1}"
   desc        = "k3s Server ${count.index + 1}"
-  vmid        = parseint("10${count.index}", 10)
+  vmid        = parseint("20${count.index}", 10)
   target_node = "pve"
 
   onboot = true
@@ -26,7 +26,7 @@ resource "proxmox_vm_qemu" "k3s-servers" {
 
   os_type = "cloud-init"
 
-  ipconfig0 = "gw=${var.network}1,ip=${var.network}1${count.index}/32"
+  ipconfig0 = "gw=${var.network}1,ip=${var.network}4${count.index}/32"
 
   ciuser  = "alex"
   sshkeys = <<EOF

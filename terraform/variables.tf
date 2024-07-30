@@ -16,3 +16,11 @@ variable "server_count" {
   type    = number
   default = 3
 }
+
+variable "vlan" {
+  type = number
+}
+
+variable "network" {
+  type = string
+}
