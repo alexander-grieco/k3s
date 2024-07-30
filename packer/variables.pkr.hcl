@@ -11,11 +11,6 @@ variable "proxmox_token_secret" {
   sensitive = true
 }
 
-variable "k3s_token" {
-  type      = string
-  sensitive = true
-}
-
 #variable "arch" {
 #  type    = string
 #  default = "amd64"

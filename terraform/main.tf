@@ -14,22 +14,26 @@ terraform {
       source  = "telmate/proxmox"
       version = "~> 2.9"
     }
-    # null = {
-    #  source  = "hashicorp/null"
-    #  version = "~> 3.0"
-    #}
-    #local = {
-    #  source  = "hashicorp/local"
-    #  version = "~> 2.3"
-    #}
-    #remote = {
-    #  source  = "tenstad/remote"
-    #  version = "~> 0.1"
-    #}
-    #random = {
-    #  source  = "hashicorp/random"
-    #  version = "~> 3.4.3"
-    #}
+    local = {
+      source  = "hashicorp/local"
+      version = "~> 2.3"
+    }
+    remote = {
+      source  = "tenstad/remote"
+      version = "0.1.1"
+    }
+    kubernetes = {
+      source  = "hashicorp/kubernetes"
+      version = "~> 2.0"
+    }
+    template = {
+      source  = "hashicorp/template"
+      version = "2.2.0"
+    }
+    random = {
+      source  = "hashicorp/random"
+      version = "~> 3.4"
+    }
     #tls = {
     #  source  = "hashicorp/tls"
     #  version = "~> 4.0"

@@ -24,3 +24,7 @@ variable "vlan" {
 variable "network" {
   type = string
 }
+
+variable "private_key_file" {
+  type = string
+}
