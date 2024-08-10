@@ -11,7 +11,7 @@ source "proxmox-iso" "k3s" {
   node                 = "proxmox"
   vm_id                = "899"
   vm_name              = "ubuntu-server-jammy-k3s"
-  template_description = "Ubuntu Server 22.04 Image with Docker and k3s pre-installed"
+  template_description = "Ubuntu Server 24.04 Image with Docker and k3s pre-installed"
 
   # VM OS Settings
   iso_file         = "local:iso/Ubuntu_Server_24.04.iso"
@@ -58,8 +58,9 @@ source "proxmox-iso" "k3s" {
     "<f10><wait>"
   ]
 
-  boot      = "c"
-  boot_wait = "10s"
+  boot         = "c"
+  boot_wait    = "10s"
+  communicator = "ssh"
 
   # PACKER Autoinstall Settings
   http_directory = "http"
@@ -76,10 +77,25 @@ build {
   sources = ["source.proxmox-iso.k3s"]
 
   # Provisioning the VM Template for Cloud-Init Integration in Proxmox #1
+  #provisioner "shell" {
+  #  inline = [
+  #    "while [ ! -f /var/lib/cloud/instance/boot-finished ]; do echo 'Waiting for cloud-init...'; sleep 1; done",
+  #    "rm -f /etc/cloud/cloud.cfg.d/subiquity-disable-cloudinit-networking.cfg",
+  #  ]
+  #}
+
   provisioner "shell" {
     inline = [
       "while [ ! -f /var/lib/cloud/instance/boot-finished ]; do echo 'Waiting for cloud-init...'; sleep 1; done",
-      "rm -f /etc/cloud/cloud.cfg.d/subiquity-disable-cloudinit-networking.cfg",
+      # "sudo rm /etc/ssh/ssh_host_*",
+      "sudo truncate -s 0 /etc/machine-id",
+      "sudo apt -y autoremove --purge",
+      "sudo apt -y clean",
+      "sudo apt -y autoclean",
+      "sudo cloud-init clean",
+      "sudo rm -f /etc/cloud/cloud.cfg.d/subiquity-disable-cloudinit-networking.cfg",
+      "sudo rm -f /etc/netplan/00-installer-config.yaml",
+      "sudo sync"
     ]
   }
 

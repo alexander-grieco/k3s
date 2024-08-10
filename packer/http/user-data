@@ -4,6 +4,8 @@ autoinstall:
   locale: en_US
   keyboard:
     layout: us
+  refresh-installer:
+    update: false
   ssh:
     install-server: true
     allow-pw: false
@@ -20,7 +22,7 @@ autoinstall:
       size: 0
   user-data:
     disable_root: false
-    package_upgrade: false
+    package_upgrade: true
     users:
       - name: root
         lock-passwd: false
