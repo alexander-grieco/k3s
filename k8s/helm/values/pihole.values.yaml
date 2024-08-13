@@ -1,0 +1,14 @@
+---
+persistentVolumeClaim:
+  enabled: true
+serviceWeb:
+  loadBalancerIP: 10.0.1.250
+  annotations:
+    metallb.universe.tf/allow-shared-ip: pihole-svc
+  type: LoadBalancer
+serviceDns:
+  loadBalancerIP: 10.2.0.250
+  annotations:
+    metallb.universe.tf/allow-shared-ip: pihole-svc
+  type: LoadBalancer
+replicaCount: 1

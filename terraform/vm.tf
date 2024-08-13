@@ -34,7 +34,8 @@ resource "proxmox_vm_qemu" "k3s-servers" {
 
   os_type = "cloud-init"
 
-  ipconfig0 = "gw=${var.network}1,ip=${var.network}4${count.index}/32"
+  ipconfig0  = "gw=${var.network}1,ip=${var.network}4${count.index}/32"
+  nameserver = "1.1.1.1"
 
   ciuser  = "alex"
   sshkeys = <<EOF
@@ -58,6 +59,7 @@ resource "proxmox_vm_qemu" "k3s-servers" {
           --token "${random_bytes.k3s_token.hex}" \
           --write-kubeconfig-mode 644
       else
+        sleep 30
         echo "Setting up server${count.index + 1}"
         curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC='server' sh -s - \
           --token "${random_bytes.k3s_token.hex}" \
