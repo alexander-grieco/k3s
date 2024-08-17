@@ -12,7 +12,7 @@ resource "proxmox_vm_qemu" "k3s-servers" {
   name        = "k3s-server${count.index + 1}"
   desc        = "k3s Server ${count.index + 1}"
   vmid        = parseint("20${count.index}", 10)
-  target_node = "proxmox"
+  target_node = "pve"
 
   onboot = true
 
@@ -32,10 +32,41 @@ resource "proxmox_vm_qemu" "k3s-servers" {
     tag    = var.vlan
   }
 
+  disks {
+    ide {
+      ide0 {
+        cloudinit {
+          storage = "local-lvm"
+        }
+      }
+      ide2 {
+        cdrom {
+          passthrough = false
+        }
+      }
+    }
+    virtio {
+      virtio0 {
+        disk {
+          backup    = true
+          discard   = false
+          format    = "raw"
+          readonly  = false
+          replicate = true
+          size      = "128G"
+          storage   = "local-lvm"
+        }
+      }
+    }
+
+  }
+
+  scsihw = "virtio-scsi-pci"
+
   os_type = "cloud-init"
 
-  ipconfig0  = "gw=${var.network}1,ip=${var.network}4${count.index}/32"
-  nameserver = "1.1.1.1"
+  ipconfig0 = "ip=${var.network}5${count.index}/16,gw=${var.network}1"
+  # nameserver = "1.1.1.1"
 
   ciuser  = "alex"
   sshkeys = <<EOF
@@ -48,6 +79,7 @@ resource "proxmox_vm_qemu" "k3s-servers" {
       user        = "alex"
       private_key = data.local_file.private_key.content
     }
+    on_failure = continue
 
     inline = [<<-EOT
 
@@ -70,7 +102,7 @@ resource "proxmox_vm_qemu" "k3s-servers" {
   }
 
   lifecycle {
-    ignore_changes = [desc, tags, network, disk, cicustom, qemu_os]
+    ignore_changes = [desc, tags, network, cicustom, qemu_os]
   }
 }
 
