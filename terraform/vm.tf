@@ -95,7 +95,7 @@ resource "proxmox_vm_qemu" "k3s-servers" {
         echo "Setting up server${count.index + 1}"
         curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC='server' sh -s - \
           --token "${random_bytes.k3s_token.hex}" \
-          --server "https://${var.network}40:6443"
+          --server "https://${var.network}50:6443"
       fi
       EOT
     ]

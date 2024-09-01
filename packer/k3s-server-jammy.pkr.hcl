@@ -75,15 +75,15 @@ build {
 
   name    = "k3s"
   sources = ["source.proxmox-iso.k3s"]
-
+  # Provisioning the VM Template for Cloud-Init Integration in Proxmox #1
   provisioner "shell" {
     inline = [
       "while [ ! -f /var/lib/cloud/instance/boot-finished ]; do echo 'Waiting for cloud-init...'; sleep 1; done",
       "sudo rm /etc/ssh/ssh_host_*",
       "sudo truncate -s 0 /etc/machine-id",
-      # "sudo apt -y autoremove --purge",
-      # "sudo apt -y clean",
-      # "sudo apt -y autoclean",
+      "sudo apt -y autoremove --purge",
+      "sudo apt -y clean",
+      "sudo apt -y autoclean",
       "sudo cloud-init clean",
       "sudo rm -f /etc/cloud/cloud.cfg.d/subiquity-disable-cloudinit-networking.cfg",
       "sudo rm -f /etc/netplan/00-installer-config.yaml",
@@ -97,51 +97,21 @@ build {
     destination = "/tmp/99-pve.cfg"
   }
 
-  provisioner "file" {
-    source      = "files/k3s/bridge.conf"
-    destination = "/etc/sysctl.d/bridge.conf"
-  }
-
   # Provisioning the VM Template for Cloud-Init Integration in Proxmox #3
   provisioner "shell" {
     inline = ["sudo cp /tmp/99-pve.cfg /etc/cloud/cloud.cfg.d/99-pve.cfg"]
   }
 
-  # provisioner "shell" {
-  #   inline = [
-  #     "echo set debconf to Noninteractive",
-  #     "echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections"
-  #   ]
-  # }
-
   # Provisioning the VM Template with Docker Installation #4
   provisioner "shell" {
     inline = [
-      "echo '=============================================='",
-      "echo 'INSTALL DOCKER'",
-      "echo '=============================================='",
       "sudo apt-get install -y ca-certificates curl gnupg lsb-release",
       "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg",
       "echo \"deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable\" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null",
       "sudo apt-get -y update",
-      "sudo apt-get install -y docker-ce docker-ce-cli containerd.io",
-      "sudo usermod -aG docker alex",
+      "sudo apt-get install -y docker-ce docker-ce-cli containerd.io"
     ]
   }
-
-  # # https://discuss.hashicorp.com/t/how-to-fix-debconf-unable-to-initialize-frontend-dialog-error/39201/2
-  # provisioner "shell" {
-  #   expect_disconnect = "true"
-  #   inline = [
-  #     "echo '=============================================='",
-  #     "echo 'APT INSTALL PACKAGES & UPDATES'",
-  #     "echo '=============================================='",
-  #     "sudo apt-get update",
-  #     "sudo apt-get -y install --no-install-recommends apt-utils git unzip wget",
-  #     "sudo apt-get -y upgrade",
-  #     "sudo apt-get -y autoremove",
-  #   ]
-  # }
 
 }
 
