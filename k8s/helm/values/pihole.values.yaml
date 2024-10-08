@@ -1,11 +1,12 @@
 ---
 DNS1: 10.2.0.1
+DNS2: 1.1.1.1
 persistentVolumeClaim:
   enabled: true
 ingress:
   enabled: true
   hosts:
-    - pihole.home
+    - pihole.local.alexgrieco.io
 serviceWeb:
   loadBalancerIP: 10.2.0.250
   annotations:

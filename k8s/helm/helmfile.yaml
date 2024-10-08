@@ -9,6 +9,8 @@ repositories:
     url: https://kubernetes.github.io/ingress-nginx
   - name: bitnami
     url: https://charts.bitnami.com/bitnami
+  - name: jetstack
+    url: https://charts.jetstack.io
 ---
 releases:
   # Storage
@@ -37,10 +39,18 @@ releases:
     version: 8.0.1
     values:
       - ./values/externaldns.values.yaml
-      # Pihole
+  # Pihole
   - name: pihole
     namespace: pihole-system
     chart: mojo2600/pihole
     version: 2.26.1
     values:
       - ./values/pihole.values.yaml
+  # Cert Manager
+  - name: cert-manager
+    namespace: cert-manager
+    chart: jetstack/cert-manager
+    version: v1.16.0
+    createNamespace: true
+    values:
+      - ./values/cert-manager.values.yaml
