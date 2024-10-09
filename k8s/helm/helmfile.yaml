@@ -11,6 +11,8 @@ repositories:
     url: https://charts.bitnami.com/bitnami
   - name: jetstack
     url: https://charts.jetstack.io
+  - name: traefik
+    url: https://traefik.github.io/charts
 ---
 releases:
   # Storage
@@ -26,12 +28,12 @@ releases:
     version: 0.14.5
     createNamespace: true
   # Ingress for local network
-  - name: ingress-nginx-internal
-    namespace: nginx-system
-    chart: ingress-nginx/ingress-nginx
-    version: 4.10.1
-    values:
-      - ./values/nginx-internal.values.yaml
+  # - name: ingress-nginx-internal
+  #   namespace: nginx-system
+  #   chart: ingress-nginx/ingress-nginx
+  #   version: 4.10.1
+  #   values:
+  #     - ./values/nginx-internal.values.yaml
   # Automatic DNS for pihole
   - name: externaldns-pihole
     namespace: pihole-system
@@ -54,3 +56,11 @@ releases:
     createNamespace: true
     values:
       - ./values/cert-manager.values.yaml
+  # Cert Manager
+  - name: traefik
+    namespace: traefik-system
+    chart: traefik/traefik
+    version: v32.1.0
+    createNamespace: true
+    values:
+      - ./values/traefik.values.yaml

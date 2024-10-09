@@ -17,9 +17,4 @@ serviceDns:
   annotations:
     metallb.universe.tf/allow-shared-ip: pihole-svc
   type: LoadBalancer
-# serviceDhcp:
-#   loadBalancerIP: 10.2.0.250
-#   annotations:
-#     metallb.universe.tf/allow-shared-ip: pihole-svc
-#   type: LoadBalancer
 replicaCount: 1

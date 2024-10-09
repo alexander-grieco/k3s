@@ -3,4 +3,5 @@ kind: Kustomization
 commonLabels:
   app.kubernetes.io/managed-by: Kustomize
 resources:
-  - ./metallb/pool.yaml
+  - ./metallb/
+  - ./traefik/
