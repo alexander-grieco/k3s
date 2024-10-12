@@ -12,7 +12,7 @@ spec:
       helm:
         releaseName: cert-manager
         valueFiles:
-          - $values/config/cert-manager/values.yaml
+          - $values/applications/config/cert-manager/values.yaml
     - repoURL: git@github.com:alexander-grieco/k3s.git
       targetRevision: HEAD
       ref: values

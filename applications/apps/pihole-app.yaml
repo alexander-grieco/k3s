@@ -12,7 +12,7 @@ spec:
       helm:
         releaseName: pihole
         valueFiles:
-          - $values/config/pihole/values.yaml
+          - $values/applications/config/pihole/values.yaml
     - repoURL: git@github.com:alexander-grieco/k3s.git
       targetRevision: HEAD
       ref: values
