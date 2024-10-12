@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: traefik
+  namespace: argocd
+spec:
+  project: default
+  sources:
+    - chart: traefik
+      repoURL: https://traefik.github.io/charts
+      targetRevision: v32.1.0
+      helm:
+        releaseName: traefik
+        valueFiles:
+          - $values/config/traefik/values.yaml
+    - repoURL: git@github.com:alexander-grieco/k3s.git
+      targetRevision: HEAD
+      ref: values
+      path: applications/config/traefik/
+
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: traefik-system
+  syncPolicy:
+    automated:
+      prune: true
+    syncOptions:
+    - CreateNamespace=true
+

@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: pihole
+  namespace: argocd
+spec:
+  project: default
+  sources:
+    - chart: pihole
+      repoURL: https://mojo2600.github.io/pihole-kubernetes/
+      targetRevision: 2.26.1
+      helm:
+        releaseName: pihole
+        valueFiles:
+          - $values/config/pihole/values.yaml
+    - repoURL: git@github.com:alexander-grieco/k3s.git
+      targetRevision: HEAD
+      ref: values
+      path: applications/config/pihole/
+
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: pihole-system
+  syncPolicy:
+    automated:
+      prune: true
+    syncOptions:
+    - CreateNamespace=true
