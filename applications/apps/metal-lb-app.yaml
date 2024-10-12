@@ -17,7 +17,7 @@ spec:
       helm:
         releaseName: metallb
     - repoURL: git@github.com:alexander-grieco/k3s.git
-      targetRevision: argocd-test
+      targetRevision: HEAD
       path: applications/config/metallb/
 
   destination:

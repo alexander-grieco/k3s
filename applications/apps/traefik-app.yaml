@@ -14,7 +14,7 @@ spec:
         valueFiles:
           - $values/config/traefik/values.yaml
     - repoURL: git@github.com:alexander-grieco/k3s.git
-      targetRevision: argocd-test
+      targetRevision: HEAD
       ref: values
       path: applications/config/traefik/
 
