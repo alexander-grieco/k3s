@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    chart: metallb/metallb
+    chart: metallb
     repoURL: https://metallb.github.io/metallb
     targetRevision: 0.14.5
     helm:

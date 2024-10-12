@@ -7,7 +7,7 @@ spec:
   project: default
   sources:
     - repoURL: git@github.com:alexander-grieco/k3s.git
-      targetRevision: HEAD
+      targetRevision: argocd-test
       path: applications
 
   destination:
