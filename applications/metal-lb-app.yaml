@@ -4,6 +4,7 @@ metadata:
   name: metal-lb
   namespace: argocd
 spec:
+  project: default
   source:
     chart: metallb/metallb
     repoURL: https://metallb.github.io/metallb
