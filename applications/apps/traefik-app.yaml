@@ -1,28 +1,29 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: pihole
+  name: traefik
   namespace: argocd
 spec:
   project: default
   sources:
-    - chart: pihole
-      repoURL: https://mojo2600.github.io/pihole-kubernetes/
-      targetRevision: 2.26.1
+    - chart: traefik
+      repoURL: https://traefik.github.io/charts
+      targetRevision: v32.1.0
       helm:
-        releaseName: pihole
+        releaseName: traefik
         valueFiles:
-          - $values/config/pihole/values.yaml
+          - $values/config/traefik/values.yaml
     - repoURL: git@github.com:alexander-grieco/k3s.git
       targetRevision: argocd-test
       ref: values
-      path: config/pihole/
+      path: applications/config/traefik/
 
   destination:
     server: "https://kubernetes.default.svc"
-    namespace: pihole-system
+    namespace: traefik-system
   syncPolicy:
     automated:
       prune: true
     syncOptions:
     - CreateNamespace=true
+

@@ -8,7 +8,7 @@ spec:
   sources:
     - repoURL: git@github.com:alexander-grieco/k3s.git
       targetRevision: argocd-test
-      path: applications
+      path: applications/apps
 
   destination:
     server: "https://kubernetes.default.svc"

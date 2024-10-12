@@ -16,7 +16,7 @@ spec:
     - repoURL: git@github.com:alexander-grieco/k3s.git
       targetRevision: argocd-test
       ref: values
-      path: config/cert-manager/
+      path: applications/config/cert-manager/
 
   destination:
     server: "https://kubernetes.default.svc"

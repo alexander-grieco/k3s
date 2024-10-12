@@ -18,7 +18,7 @@ spec:
         releaseName: metallb
     - repoURL: git@github.com:alexander-grieco/k3s.git
       targetRevision: argocd-test
-      path: config/metallb/
+      path: applications/config/metallb/
 
   destination:
     server: "https://kubernetes.default.svc"
