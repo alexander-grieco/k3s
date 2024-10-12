@@ -3,10 +3,10 @@ DNS1: 10.2.0.1
 DNS2: 1.1.1.1
 persistentVolumeClaim:
   enabled: true
-ingress:
-  enabled: true
-  hosts:
-    - pihole.local.alexgrieco.io
+# ingress:
+#   enabled: true
+#   hosts:
+#     - pihole.local.grieco.me
 serviceWeb:
   loadBalancerIP: 10.2.0.250
   annotations:
@@ -18,3 +18,10 @@ serviceDns:
     metallb.universe.tf/allow-shared-ip: pihole-svc
   type: LoadBalancer
 replicaCount: 1
+dnsmasq:
+  # -- Add custom dns entries to override the dns resolution. All lines will be added to the pihole dnsmasq configuration.
+  customDnsEntries:
+    - address=/traefik.local.grieco.me/10.2.0.249
+    - address=/*.local.grieco.me/10.2.0.249
+  # - address=/foo.bar/192.168.178.10
+  # - address=/bar.foo/192.168.178.11

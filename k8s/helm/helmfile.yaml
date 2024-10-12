@@ -35,12 +35,12 @@ releases:
   #   values:
   #     - ./values/nginx-internal.values.yaml
   # Automatic DNS for pihole
-  - name: externaldns-pihole
-    namespace: pihole-system
-    chart: bitnami/external-dns
-    version: 8.0.1
-    values:
-      - ./values/externaldns.values.yaml
+  # - name: externaldns-pihole
+  #   namespace: pihole-system
+  #   chart: bitnami/external-dns
+  #   version: 8.0.1
+  #   values:
+  #     - ./values/externaldns.values.yaml
   # Pihole
   - name: pihole
     namespace: pihole-system

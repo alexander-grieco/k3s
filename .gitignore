@@ -43,3 +43,4 @@ terraform.rc
 *.token
 *unseal-keys*
 **.DS_Store*
+**token.yaml

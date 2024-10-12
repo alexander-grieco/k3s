@@ -17,5 +17,5 @@ spec:
       services:
         - name: api@internal
           kind: TraefikService
-#  tls:
-#    secretName: local-example-com-staging-tl
+  tls:
+    secretName: local-grieco-me-tls
