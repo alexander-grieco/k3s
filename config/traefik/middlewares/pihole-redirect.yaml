@@ -1,0 +1,9 @@
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: pihole-redirect
+  namespace: traefik-system
+spec:
+   redirectRegex:
+     regex: "^https?://pihole.local.grieco.me/$"
+     replacement: "https://pihole.local.grieco.me/admin/"
