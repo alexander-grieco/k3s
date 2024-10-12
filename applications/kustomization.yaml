@@ -3,3 +3,5 @@ kind: Kustomization
 
 resources:
   - ./metal-lb-app.yaml
+  - ./longhorn-app.yaml
+  - ./pihole-app.yaml

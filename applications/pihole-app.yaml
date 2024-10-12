@@ -1,23 +1,26 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: metallb
+  name: pihole
   namespace: argocd
 spec:
   project: default
   sources:
-    - chart: metallb
-      repoURL: https://metallb.github.io/metallb
-      targetRevision: 0.14.5
+    - chart: pihole
+      repoURL: https://mojo2600.github.io/pihole-kubernetes/
+      targetRevision: 2.26.1
       helm:
-        releaseName: metallb
+        releaseName: pihole
+        valueFiles:
+          - $values/config/pihole/values.yaml
     - repoURL: git@github.com:alexander-grieco/k3s.git
       targetRevision: argocd-test
-      path: config/metallb/
+      ref: values
+      path: config/pihole/
 
   destination:
     server: "https://kubernetes.default.svc"
-    namespace: metallb-system
+    namespace: pihole-system
   syncPolicy:
     automated:
       prune: true
