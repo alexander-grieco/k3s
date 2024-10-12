@@ -1,0 +1,26 @@
+global:
+  domain: argocd.local.grieco.me
+configs:
+  repositories:
+    k3s-repo:
+      # Uses repo credentials defined in environment values.yaml file (either production/values.yaml or staging/values.yaml)
+      url: git@github.com:alexander-grieco/k3s
+      name: k3s
+      type: git
+
+  params:
+    server.insecure: true # Run server without TLS
+
+server:
+  ingress:
+    enabled: true
+    annotations:
+      kubernetes.io/ingress.class: traefik-external
+      traefik.ingress.kubernetes.io/router.entrypoints: websecure
+      traefik.ingress.kubernetes.io/router.tls: "true"
+
+    # -- Defines which ingress controller will implement the resource
+    ingressClassName: "traefik-external"
+
+    extraTls:
+      - secretName: local-grieco-me-tls
