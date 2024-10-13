@@ -13,6 +13,10 @@ spec:
         releaseName: reloader
         valueFiles:
           - $values/applications/config/reloader/values.yaml
+    - repoURL: git@github.com:alexander-grieco/k3s.git
+      targetRevision: HEAD
+      ref: values
+      path: applications/config/reloader/
 
   destination:
     server: "https://kubernetes.default.svc"
