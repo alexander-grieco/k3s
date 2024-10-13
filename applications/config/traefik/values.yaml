@@ -75,6 +75,24 @@ providers:
               - https-redirectscheme
             tls: {}
             service: pfsense
+          truenas:
+            entryPoints:
+              - "websecure"
+            rule: "Host(`truenas.local.grieco.me`)"
+            middlewares:
+              - default-headers
+              - https-redirectscheme
+            tls: {}
+            service: truenas
+          nextcloud:
+            entryPoints:
+              - "websecure"
+            rule: "Host(`nextcloud.local.grieco.me`)"
+            middlewares:
+              - default-headers
+              - https-redirectscheme
+            tls: {}
+            service: nextcloud
         #endregion
 
         #region services
@@ -88,6 +106,16 @@ providers:
             loadBalancer:
               servers:
                 - url: "https://10.13.13.1:10443"
+              passHostHeader: true
+          truenas:
+            loadBalancer:
+              servers:
+                - url: "https://10.13.13.3"
+              passHostHeader: true
+          nextcloud:
+            loadBalancer:
+              servers:
+      - url: "https://10.13.13.3:9001"
               passHostHeader: true
         #endregion
 
