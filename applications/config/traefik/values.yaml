@@ -46,6 +46,7 @@ providers:
     allowExternalNameServices: true
     allowCrossNamespace: true
     publishedService:
+      enabled: false
   file:
     # -- Create a file provider
     enabled: true
