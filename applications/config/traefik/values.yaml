@@ -66,6 +66,15 @@ providers:
               - https-redirectscheme
             tls: {}
             service: proxmox
+          pfsense:
+            entryPoints:
+              - "websecure"
+            rule: "Host(`pfsense.local.grieco.me`)"
+            middlewares:
+              - default-headers
+              - https-redirectscheme
+            tls: {}
+            service: pfsense
         #endregion
 
         #region services
@@ -74,6 +83,11 @@ providers:
             loadBalancer:
               servers:
                 - url: "https://10.13.13.2:8006"
+              passHostHeader: true
+          pfsense:
+            loadBalancer:
+              servers:
+                - url: "https://10.13.13.1:10443"
               passHostHeader: true
         #endregion
 
