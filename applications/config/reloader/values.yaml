@@ -1,0 +1,3 @@
+reloader:
+  # Reloads all deployments/statefulsets/etc when any dependent secret or configmap is updated
+  autoReloadAll: true

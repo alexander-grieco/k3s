@@ -7,3 +7,4 @@ resources:
   - ./pihole-app.yaml
   - ./cert-manager-app.yaml
   - ./traefik-app.yaml
+  - ./reloader-app.yaml
