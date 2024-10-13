@@ -115,7 +115,7 @@ providers:
           nextcloud:
             loadBalancer:
               servers:
-                - url: "https://10.13.13.3:9001"
+                - url: "https://10.13.13.3:9001/apps/files/files"
               passHostHeader: true
         #endregion
 
