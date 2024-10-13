@@ -59,7 +59,7 @@ providers:
         routers:
           proxmox:
             entryPoints:
-              - "https"
+              - "websecure"
             rule: "Host(`proxmox.local.grieco.me`)"
             middlewares:
               - default-headers
