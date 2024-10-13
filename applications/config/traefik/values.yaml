@@ -46,7 +46,62 @@ providers:
     allowExternalNameServices: true
     allowCrossNamespace: true
     publishedService:
-      enabled: false
+  file:
+    # -- Create a file provider
+    enabled: true
+    # -- Allows Traefik to automatically watch for file changes
+    watch: true
+    # -- File content (YAML format, go template supported) (see https://doc.traefik.io/traefik/providers/file/)
+    content: |
+      http:
+        #region routers
+        routers:
+          proxmox:
+            entryPoints:
+              - "https"
+            rule: "Host(`proxmox.local.grieco.me`)"
+            middlewares:
+              - default-headers
+              - https-redirectscheme
+            tls: {}
+            service: proxmox
+        #endregion
+
+        #region services
+        services:
+          proxmox:
+            loadBalancer:
+              servers:
+                - url: "https://10.13.13.2:8006"
+              passHostHeader: true
+        #endregion
+
+        middlewares:
+          https-redirect:
+            redirectScheme:
+              scheme: https
+          https-redirectscheme:
+            redirectScheme:
+              scheme: https
+              permanent: true
+          default-headers:
+            headers:
+              frameDeny: true
+              browserXssFilter: true
+              contentTypeNosniff: true
+              forceSTSHeader: true
+              stsIncludeSubdomains: true
+              stsPreload: true
+              stsSeconds: 15552000
+              customFrameOptionsValue: SAMEORIGIN
+              customRequestHeaders:
+                X-Forwarded-Proto: https
+
+          secured:
+            chain:
+              middlewares:
+              - default-whitelist
+              - default-headers
 
 rbac:
   enabled: true
