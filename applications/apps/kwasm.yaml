@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kwasm-operator
+  namespace: kwasm
+spec:
+  project: default
+  sources:
+    - chart: kwasm-operator
+      repoURL: http://kwasm.sh/kwasm-operator
+      targetRevision: 0.2.3
+      helm:
+        releaseName: kwasm-operator
+
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: kwasm
+  syncPolicy:
+    automated:
+      prune: true
+    syncOptions:
+    - CreateNamespace=true
