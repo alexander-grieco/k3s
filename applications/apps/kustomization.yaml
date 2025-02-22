@@ -8,3 +8,4 @@ resources:
   - ./cert-manager-app.yaml
   - ./traefik-app.yaml
   - ./reloader-app.yaml
+  - ./kwasm.yaml
